@@ -3,13 +3,19 @@ const app = express();
 const port = 3000;
 
 const bodyParser = require("body-parser");
+let clothing = require("./data/clothing.json");
+let clothingList = clothing.map((element) => {
+	return `${element.size} ${element.color} ${element.description}`;
+});
 
-app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-	res.render("Inventory", { variableName: "Does it spark joy?" });
+	res.render("inventory", {
+		variableName: "Does it spark joy?",
+		ourStuff: clothingList,
+	});
 }).post("/", (req, res) => {
 	const { name } = req.body;
 	res.send(`Hi, ${name}`);
