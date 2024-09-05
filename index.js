@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
 	res.render("inventory", {
-		variableName: "Does it spark joy?",
+		variableName: "Clothing for rent",
 		ourStuff: clothingList,
 	});
 }).post("/", (req, res) => {

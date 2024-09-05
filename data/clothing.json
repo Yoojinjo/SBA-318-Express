@@ -1,7 +1,7 @@
 [
 	{
 		"id": "1",
-		"description": "Dress",
+		"description": "dress",
 		"color": "red",
 		"size": "small",
 		"image": [{ "src": "" }],
@@ -9,7 +9,7 @@
 	},
 	{
 		"id": "2",
-		"description": "Dress",
+		"description": "dress",
 		"color": "red",
 		"size": "medium",
 		"image": [{ "src": "" }],
@@ -17,7 +17,7 @@
 	},
 	{
 		"id": "3",
-		"description": "Dress",
+		"description": "dress",
 		"color": "red",
 		"size": "large",
 		"image": [{ "src": "" }],
@@ -25,7 +25,7 @@
 	},
 	{
 		"id": "4",
-		"description": "Jeans",
+		"description": "jeans",
 		"color": "blue",
 		"size": "small",
 		"image": [{ "src": "" }],
@@ -33,7 +33,7 @@
 	},
 	{
 		"id": "5",
-		"description": "Jeans",
+		"description": "jeans",
 		"color": "blue",
 		"size": "medium",
 		"image": [{ "src": "" }],
@@ -41,7 +41,7 @@
 	},
 	{
 		"id": "6",
-		"description": "Jeans",
+		"description": "jeans",
 		"color": "blue",
 		"size": "large",
 		"image": [{ "src": "" }],

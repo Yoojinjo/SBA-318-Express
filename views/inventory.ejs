@@ -6,7 +6,12 @@
 		<title>Inventory Management</title>
 	</head>
 	<body>
-		<%= variableName %> <br />
-		<p><%= ourStuff %></p>
+		<h1>The Rent-all shop</h1>
+		<h2><%= variableName %></h2>
+		<ul>
+			<% ourStuff.forEach(ele => {%>
+			<li><%= ele %></li>
+			<% }) %>
+		</ul>
 	</body>
 </html>
