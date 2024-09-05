@@ -1,0 +1,68 @@
+{
+	"clothes": [
+		{
+			"id": "1",
+			"description": "Dress",
+			"color": "red",
+			"size": "small",
+			"image": [{ "src": "" }],
+			"price": "$50"
+		},
+		{
+			"id": "2",
+			"description": "Dress",
+			"color": "red",
+			"size": "medium",
+			"image": [{ "src": "" }],
+			"price": "$50"
+		},
+		{
+			"id": "3",
+			"description": "Dress",
+			"color": "red",
+			"size": "large",
+			"image": [{ "src": "" }],
+			"price": "$50"
+		},
+		{
+			"id": "4",
+			"description": "Jeans",
+			"color": "blue",
+			"size": "small",
+			"image": [{ "src": "" }],
+			"price": "$20"
+		},
+		{
+			"id": "5",
+			"description": "Jeans",
+			"color": "blue",
+			"size": "medium",
+			"image": [{ "src": "" }],
+			"price": "$20"
+		},
+		{
+			"id": "6",
+			"description": "Jeans",
+			"color": "blue",
+			"size": "large",
+			"image": [{ "src": "" }],
+			"price": "$20"
+		},
+		{
+			"id": "7",
+			"description": "long-sleeve-shirt",
+			"color": "grey",
+			"size": "large",
+			"image": [{ "src": "" }],
+			"price": "$20"
+		},
+		{
+			"id": "8",
+			"description": "short-sleeve-shirt",
+			"color": "black",
+			"size": "large",
+			"image": [{ "src": "" }],
+			"price": "$20"
+		}
+	]
+}
