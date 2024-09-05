@@ -7,6 +7,7 @@ let clothing = require("./data/clothing.json");
 let clothingList = clothing.map((element) => {
 	return `${element.size} ${element.color} ${element.description}`;
 });
+app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
 app.use(express.json());
