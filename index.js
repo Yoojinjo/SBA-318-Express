@@ -4,11 +4,12 @@ const port = 3000;
 
 const bodyParser = require("body-parser");
 
+app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-	res.send("Hello, World!");
+	res.render("Inventory", { variableName: "Does it spark joy?" });
 }).post("/", (req, res) => {
 	const { name } = req.body;
 	res.send(`Hi, ${name}`);
