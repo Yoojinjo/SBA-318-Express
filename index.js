@@ -60,6 +60,19 @@ app.post("/rent", (req, res) => {
 	});
 });
 
+//return inventory
+app.post("/return", (req, res) => {
+	let requestedclothesId = req.body.clothesId;
+	clothing.forEach((clothing) => {
+		if (clothing.id == requestedclothesId) {
+			clothing.availability = "available";
+		}
+	});
+	res.render("inventory", {
+		data: clothing,
+	});
+});
+
 app.listen(port, (error) => {
 	if (error) console.log("Error, can't start server", error);
 	else console.log(`Server listening on http://localhost:${port}`);
