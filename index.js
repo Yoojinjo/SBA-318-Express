@@ -47,8 +47,18 @@ app.post("/inventory", (req, res) => {
 	res.render("inventory", { data: clothing });
 });
 
-// inventory is rented status
-app.post("/rent");
+// Rent out inventory
+app.post("/rent", (req, res) => {
+	let requestedclothesId = req.body.clothesId;
+	clothing.forEach((clothing) => {
+		if (clothing.id == requestedclothesId) {
+			clothing.availability = "rented";
+		}
+	});
+	res.render("inventory", {
+		data: clothing,
+	});
+});
 
 app.listen(port, (error) => {
 	if (error) console.log("Error, can't start server", error);
