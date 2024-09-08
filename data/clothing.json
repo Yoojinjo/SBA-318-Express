@@ -44,7 +44,7 @@
 		"description": "jeans",
 		"color": "blue",
 		"size": "medium",
-		"image": [{ "src": "" }],
+		"image": [{ "src": "./red-dress.jpg" }],
 		"price": "$20",
 		"availability": "available",
 		"rentedTo": ""

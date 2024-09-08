@@ -11,7 +11,9 @@ app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+//home page item list
 app.get("/", (req, res) => {
 	res.render("home", {
 		variableName: "Clothing for rent",
@@ -19,9 +21,34 @@ app.get("/", (req, res) => {
 	});
 });
 
+//inventory control page
 app.get("/inventory", (req, res) => {
 	res.render("inventory", { data: clothing });
 });
+
+//get values from add clothes form
+app.post("/inventory", (req, res) => {
+	console.log(req.body);
+	const inputClothesId = req.body.clothesId;
+	const inputClothesDescription = req.body.clothesDescription;
+	const inputClothesColor = req.body.clothesColor;
+	const inputClothesSize = req.body.clothesSize;
+	const inputClothesPrice = req.body.clothesPrice;
+
+	clothing.push({
+		id: inputClothesId,
+		description: inputClothesDescription,
+		color: inputClothesColor,
+		size: inputClothesSize,
+		price: inputClothesPrice,
+		availability: "available",
+		rentedTo: "",
+	});
+	res.render("inventory", { data: clothing });
+});
+
+// inventory is rented status
+app.post("/rent");
 
 app.listen(port, (error) => {
 	if (error) console.log("Error, can't start server", error);

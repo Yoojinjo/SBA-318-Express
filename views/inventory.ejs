@@ -26,12 +26,13 @@
 		<h1>Clothing Inventory</h1>
 		<table>
 			<tr>
-				<th>Clothes ID</th>
+				<th>ID</th>
 				<th>Description</th>
 				<th>Color</th>
 				<th>Size</th>
 				<th>Availability</th>
 				<th>Rented to</th>
+				<th>Price</th>
 				<th>Rent Item</th>
 				<th>Item Return</th>
 				<th>Delete Item</th>
@@ -44,6 +45,7 @@
 				<td><%= element.size %></td>
 				<td><%= element.availability %></td>
 				<td><%= element.rentedTo %></td>
+				<td><%= element.price %></td>
 				<td>
 					<form action="/rent" method="post">
 						<input
@@ -83,16 +85,24 @@
 
 		<h1>Add Clothing</h1>
 
-		<form action="/" method="post">
-			<input type="text" placeholder="Clothes ID" name="id" />
+		<form action="/inventory" method="post">
+			<input type="text" placeholder="Clothes ID" name="clothesId" />
 			<input
 				type="text"
 				placeholder="Clothes Description"
-				name="description"
+				name="clothesDescription"
 			/>
-			<input type="text" placeholder="Clothes Color" name="color" />
-			<input type="text" placeholder="Clothes Size" name="size" />
-			<input type="text" placeholder="Clothes Price" name="price" />
+			<input
+				type="text"
+				placeholder="Clothes Color"
+				name="clothesColor"
+			/>
+			<input type="text" placeholder="Clothes Size" name="clothesSize" />
+			<input
+				type="text"
+				placeholder="Clothes Price"
+				name="clothesPrice"
+			/>
 			<button type="submit">Add</button>
 		</form>
 	</body>
