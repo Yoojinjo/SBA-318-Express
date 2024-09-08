@@ -5,7 +5,9 @@
 		"color": "red",
 		"size": "small",
 		"image": [{ "src": "" }],
-		"price": "$50"
+		"price": "$50",
+		"availability": "available",
+		"rentedTo": ""
 	},
 	{
 		"id": "2",
@@ -13,7 +15,9 @@
 		"color": "red",
 		"size": "medium",
 		"image": [{ "src": "" }],
-		"price": "$50"
+		"price": "$50",
+		"availability": "rented",
+		"rentedTo": "cust1"
 	},
 	{
 		"id": "3",
@@ -21,7 +25,9 @@
 		"color": "red",
 		"size": "large",
 		"image": [{ "src": "" }],
-		"price": "$50"
+		"price": "$50",
+		"availability": "lost",
+		"rentedTo": "cust3"
 	},
 	{
 		"id": "4",
@@ -29,7 +35,9 @@
 		"color": "blue",
 		"size": "small",
 		"image": [{ "src": "" }],
-		"price": "$20"
+		"price": "$20",
+		"availability": "rented",
+		"rentedTo": "cust1"
 	},
 	{
 		"id": "5",
@@ -37,7 +45,9 @@
 		"color": "blue",
 		"size": "medium",
 		"image": [{ "src": "" }],
-		"price": "$20"
+		"price": "$20",
+		"availability": "available",
+		"rentedTo": ""
 	},
 	{
 		"id": "6",
@@ -45,7 +55,9 @@
 		"color": "blue",
 		"size": "large",
 		"image": [{ "src": "" }],
-		"price": "$20"
+		"price": "$20",
+		"availability": "rented",
+		"rentedTo": "cust2"
 	},
 	{
 		"id": "7",
@@ -53,7 +65,9 @@
 		"color": "grey",
 		"size": "large",
 		"image": [{ "src": "" }],
-		"price": "$20"
+		"price": "$20",
+		"availability": "rented",
+		"rentedTo": "cust2"
 	},
 	{
 		"id": "8",
@@ -61,6 +75,8 @@
 		"color": "black",
 		"size": "large",
 		"image": [{ "src": "" }],
-		"price": "$20"
+		"price": "$20",
+		"availability": "lost",
+		"rentedTo": ""
 	}
 ]

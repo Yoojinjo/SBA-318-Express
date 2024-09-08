@@ -1,17 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Inventory Management</title>
+		<title>LMS</title>
 	</head>
+	<style>
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td,
+		th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #dddddd;
+		}
+	</style>
+
 	<body>
-		<h1>The Rent-all shop</h1>
-		<h2><%= variableName %></h2>
-		<ul>
-			<% ourStuff.forEach(ele => {%>
-			<li><%= ele %></li>
+		<h1>Clothing Inventory</h1>
+		<table>
+			<tr>
+				<th>Clothes ID</th>
+				<th>Description</th>
+				<th>Color</th>
+				<th>Size</th>
+				<th>Availability</th>
+				<th>Rented to</th>
+				<th>Rent Item</th>
+				<th>Item Return</th>
+				<th>Delete Item</th>
+			</tr>
+			<% data.forEach(element=> { %>
+			<tr>
+				<td><%= element.id %></td>
+				<td><%= element.description %></td>
+				<td><%= element.color %></td>
+				<td><%= element.size %></td>
+				<td><%= element.availability %></td>
+				<td><%= element.rentedTo %></td>
+				<td>
+					<form action="/rent" method="post">
+						<input
+							type="text"
+							style="display: none"
+							name="clothesId"
+							value="<%= element.id %>"
+						/>
+						<button type="submit">Rent Out</button>
+					</form>
+				</td>
+				<td>
+					<form action="/return" method="post">
+						<input
+							type="text"
+							style="display: none"
+							name="clothesId"
+							value="<%= element.id %>"
+						/>
+						<button type="submit">Item Return</button>
+					</form>
+				</td>
+				<td>
+					<form action="/delete" method="post">
+						<input
+							type="text"
+							style="display: none"
+							name="clothesId"
+							value="<%= element.id %>"
+						/>
+						<button type="submit">Delete</button>
+					</form>
+				</td>
+			</tr>
 			<% }) %>
-		</ul>
+		</table>
+
+		<h1>Add Clothing</h1>
+
+		<form action="/" method="post">
+			<input type="text" placeholder="Clothes ID" name="id" />
+			<input
+				type="text"
+				placeholder="Clothes Description"
+				name="description"
+			/>
+			<input type="text" placeholder="Clothes Color" name="color" />
+			<input type="text" placeholder="Clothes Size" name="size" />
+			<input type="text" placeholder="Clothes Price" name="price" />
+			<button type="submit">Add</button>
+		</form>
 	</body>
 </html>

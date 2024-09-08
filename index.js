@@ -13,13 +13,14 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-	res.render("inventory", {
+	res.render("home", {
 		variableName: "Clothing for rent",
 		ourStuff: clothingList,
 	});
-}).post("/", (req, res) => {
-	const { name } = req.body;
-	res.send(`Hi, ${name}`);
+});
+
+app.get("/inventory", (req, res) => {
+	res.render("inventory", { data: clothing });
 });
 
 app.listen(port, (error) => {
