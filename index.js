@@ -21,6 +21,14 @@ app.get("/", (req, res) => {
 		ourStuff: clothingList,
 	});
 });
+// Middleware for the inventory view
+function renderInventoryPage(req, res, next) {
+	res.render("inventory", {
+		data: req.clothing || clothing, // Replace `clothing` with data if necessary
+		errorMessage: res.locals.errorMessage || "", // Error message or empty string
+		inputValues: res.locals.inputValues || {}, // Input values or empty object
+	});
+}
 
 //inventory control page
 app.get("/inventory", (req, res) => {
@@ -32,67 +40,55 @@ app.get("/inventory", (req, res) => {
 });
 
 //get values from add clothes form
-app.post("/inventory", (req, res) => {
-	console.log(req.body);
-	const inputClothesId = req.body.clothesId;
-	const inputClothesDescription = req.body.clothesDescription;
-	const inputClothesColor = req.body.clothesColor;
-	const inputClothesSize = req.body.clothesSize;
-	const inputClothesPrice = req.body.clothesPrice;
+app.post(
+	"/inventory",
+	(req, res, next) => {
+		console.log(req.body);
+		const inputClothesId = req.body.clothesId;
+		const inputClothesDescription = req.body.clothesDescription;
+		const inputClothesColor = req.body.clothesColor;
+		const inputClothesSize = req.body.clothesSize;
+		const inputClothesPrice = req.body.clothesPrice;
 
-	// Check if the ID already exists
-	let isDuplicate = clothing.some((item) => item.id == inputClothesId);
-	if (isDuplicate) {
-		return res.render("inventory", {
-			data: clothing,
-			errorMessage:
-				"Clothes ID already exists. Please use a different ID.",
-			inputValues: {
-				clothesDescription: inputClothesDescription,
-				clothesColor: inputClothesColor,
-				clothesSize: inputClothesSize,
-				clothesPrice: inputClothesPrice,
-			},
+		// Check if the ID already exists
+		let isDuplicate = clothing.some((item) => item.id == inputClothesId);
+		if (isDuplicate) {
+			(res.locals.errorMessage =
+				"Clothes ID already exists. Please use a different ID."),
+				(res.locals.inputValues = req.body);
+			return next();
+		}
+
+		// Check that all fields are filled
+		if (
+			inputClothesId === "" ||
+			inputClothesDescription === "" ||
+			inputClothesColor === "" ||
+			inputClothesSize === "" ||
+			inputClothesPrice === ""
+		) {
+			res.locals.errorMessage = "All fields are required.";
+			res.locals.inputValues = req.body; // Retain input values
+			return next();
+		}
+
+		// add values to clothing data
+		clothing.push({
+			id: inputClothesId,
+			description: inputClothesDescription,
+			color: inputClothesColor,
+			size: inputClothesSize,
+			price: `$${inputClothesPrice}`,
+			availability: "available",
+			rentedTo: "",
 		});
-	}
+		res.locals.errorMessage = "";
+		res.locals.inputValues = {};
+		next();
+	},
+	renderInventoryPage
+);
 
-	// Check that all fields are filled
-	if (
-		inputClothesId === "" ||
-		inputClothesDescription === "" ||
-		inputClothesColor === "" ||
-		inputClothesSize === "" ||
-		inputClothesPrice === ""
-	) {
-		return res.render("inventory", {
-			data: clothing,
-			errorMessage: "ALL Fields are required",
-			inputValues: {
-				clothesId: inputClothesId,
-				clothesDescription: inputClothesDescription,
-				clothesColor: inputClothesColor,
-				clothesSize: inputClothesSize,
-				clothesPrice: inputClothesPrice,
-			},
-		});
-	}
-
-	// add values to clothing data
-	clothing.push({
-		id: inputClothesId,
-		description: inputClothesDescription,
-		color: inputClothesColor,
-		size: inputClothesSize,
-		price: `$${inputClothesPrice}`,
-		availability: "available",
-		rentedTo: "",
-	});
-	res.render("inventory", {
-		data: clothing,
-		errorMessage: "",
-		inputValues: "",
-	});
-});
 // Rent out inventory
 app.post("/rent", (req, res) => {
 	let requestedclothesId = req.body.clothesId;
