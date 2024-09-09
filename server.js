@@ -16,6 +16,8 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static("views")); // where your CSS resides
+
 //home page item list
 app.get("/", (req, res) => {
 	res.render("home", {

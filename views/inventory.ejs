@@ -2,41 +2,9 @@
 <html>
 	<head>
 		<title>LMS</title>
+		<link rel="stylesheet" href="./style.css" />
 	</head>
-	<style>
-		table {
-			font-family: arial, sans-serif;
-			border-collapse: collapse;
-			width: 100%;
-		}
-
-		td,
-		th {
-			border: 1px solid #dddddd;
-			text-align: left;
-			padding: 8px;
-		}
-
-		tr:nth-child(even) {
-			background-color: #dddddd;
-		}
-		/* Button styles */
-		.rent-button {
-			background-color: green;
-			color: white;
-			border: none;
-			padding: 10px 20px;
-			cursor: pointer;
-		}
-
-		.rented-button {
-			background-color: red;
-			color: white;
-			border: none;
-			padding: 10px 20px;
-			cursor: not-allowed; /* Disables the cursor */
-		}
-	</style>
+	<style></style>
 
 	<body>
 		<h1>Clothing Inventory</h1>
@@ -95,8 +63,14 @@
 							style="display: none"
 							name="clothesId"
 							value="<%= element.id %>"
-						/>
-						<button type="submit">Item Return</button>
+						/><% if (element.availability === "lost") { %>
+						<button type="submit" class="return-button" disabled>
+							Lost!</button
+						><% } else { %>
+						<button type="submit" class="return-button">
+							Item Return
+						</button>
+						<% } %>
 					</form>
 				</td>
 				<td>
