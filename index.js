@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 
 //inventory control page
 app.get("/inventory", (req, res) => {
-	res.render("inventory", { data: clothing });
+	res.render("inventory", { data: clothing, errorMessage: "" });
 });
 
 //get values from add clothes form
@@ -55,7 +55,7 @@ app.post("/inventory", (req, res) => {
 			availability: "available",
 			rentedTo: "",
 		});
-		res.render("inventory", { data: clothing });
+		res.render("inventory", { data: clothing, errorMessage: "" });
 	}
 });
 // Rent out inventory
@@ -68,6 +68,7 @@ app.post("/rent", (req, res) => {
 	});
 	res.render("inventory", {
 		data: clothing,
+		errorMessage: "",
 	});
 });
 
@@ -81,6 +82,7 @@ app.post("/return", (req, res) => {
 	});
 	res.render("inventory", {
 		data: clothing,
+		errorMessage: "",
 	});
 });
 
@@ -98,6 +100,7 @@ app.post("/delete", (req, res) => {
 
 	res.render("inventory", {
 		data: clothing,
+		errorMessage: "",
 	});
 });
 app.listen(port, (error) => {
