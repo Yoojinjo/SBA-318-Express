@@ -129,47 +129,47 @@
 		</form>
 
 		<h2>Edit Clothing</h2>
-		<form action="/inventory" method="post">
+		<form action="/inventory?_method=PUT" method="post">
 			<input
 				type="text"
 				placeholder="Clothes ID"
-				name="editClothesId"
+				name="clothesId"
 				value="<%= inputValues ? inputValues.clothesId : '' %>"
 			/>
 			<input
 				type="text"
 				placeholder="Clothes Description"
-				name="editClothesDescription"
+				name="clothesDescription"
 				value="<%= inputValues ? inputValues.clothesDescription : '' %>"
 			/>
 			<input
 				type="text"
 				placeholder="Clothes Color"
-				name="editClothesColor"
+				name="clothesColor"
 				value="<%= inputValues ? inputValues.clothesColor : '' %>"
 			/>
 			<input
 				type="text"
 				placeholder="Clothes Size"
-				name="editClothesSize"
+				name="clothesSize"
 				value="<%= inputValues ? inputValues.clothesSize : '' %>"
 			/>
 			<input
 				type="text"
 				placeholder="Clothes Price"
-				name="editClothesPrice"
+				name="clothesPrice"
 				value="<%= inputValues ? inputValues.clothesPrice : '' %>"
 			/>
 			<input
 				type="text"
 				placeholder="Clothes Availability"
-				name="editClothesAvailability"
+				name="clothesAvailability"
 				value="<%= inputValues ? inputValues.clothesAvailability : '' %>"
 			/>
 			<input
 				type="text"
 				placeholder="Clothes Rented To"
-				name="editClothesRentedTo"
+				name="clothesRentedTo"
 				value="<%= inputValues ? inputValues.clothesRentedTo : '' %>"
 			/>
 			<button type="submit">Edit</button>

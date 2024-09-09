@@ -4,7 +4,7 @@ const port = 3000;
 
 const bodyParser = require("body-parser");
 let customers = require("./data/customers.json");
-let customerName = customers.name;
+
 let clothing = require("./data/clothing.json");
 let clothingList = clothing.map((element) => {
 	return `${element.size} ${element.color} ${element.description}`;
@@ -16,7 +16,9 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static("views")); // where your CSS resides
+app.use(express.static("views")); // where CSS resides
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 //home page item list
 app.get("/", (req, res) => {
@@ -31,6 +33,7 @@ function renderInventoryPage(req, res, next) {
 		data: req.clothing || clothing, // Replace `clothing` with data if necessary
 		errorMessage: res.locals.errorMessage || "", // Error message or empty string
 		inputValues: res.locals.inputValues || {}, // Input values or empty object
+		customers: customers,
 	});
 }
 
@@ -69,6 +72,8 @@ app.get("/inventory/:id", (req, res) => {
 		});
 	}
 });
+
+//add items
 //get values from add clothes form
 app.post(
 	"/inventory",
@@ -112,6 +117,48 @@ app.post(
 			availability: "available",
 			rentedTo: "",
 		});
+		res.locals.errorMessage = "";
+		res.locals.inputValues = {};
+		next();
+	},
+	renderInventoryPage
+);
+
+//edit items
+//get values from add clothes form
+app.put(
+	"/inventory",
+	(req, res, next) => {
+		const {
+			clothesId,
+			clothesDescription,
+			clothesColor,
+			clothesSize,
+			clothesPrice,
+			clothesAvailability,
+			clothesRentedTo,
+		} = req.body;
+
+		// Find the index of the item by ID
+		const itemIndex = clothing.findIndex((item) => item.id == clothesId);
+
+		if (itemIndex === -1) {
+			res.locals.errorMessage = "Item not found";
+			res.locals.inputValues = req.body;
+			return next();
+		}
+
+		// Update the clothing item
+		clothing[itemIndex] = {
+			id: clothesId,
+			description: clothesDescription,
+			color: clothesColor,
+			size: clothesSize,
+			price: clothesPrice,
+			availability: clothesAvailability,
+			rentedTo: clothesRentedTo,
+		};
+
 		res.locals.errorMessage = "";
 		res.locals.inputValues = {};
 		next();
