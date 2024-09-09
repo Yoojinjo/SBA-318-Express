@@ -5,7 +5,7 @@
 		"color": "red",
 		"size": "small",
 		"image": [{ "src": "" }],
-		"price": "$50",
+		"price": "50",
 		"availability": "available",
 		"rentedTo": ""
 	},
@@ -15,7 +15,7 @@
 		"color": "red",
 		"size": "medium",
 		"image": [{ "src": "" }],
-		"price": "$50",
+		"price": "50",
 		"availability": "rented",
 		"rentedTo": "cust1"
 	},
@@ -25,7 +25,7 @@
 		"color": "red",
 		"size": "large",
 		"image": [{ "src": "" }],
-		"price": "$50",
+		"price": "50",
 		"availability": "lost",
 		"rentedTo": "cust3"
 	},
@@ -35,7 +35,7 @@
 		"color": "blue",
 		"size": "small",
 		"image": [{ "src": "" }],
-		"price": "$20",
+		"price": "20",
 		"availability": "rented",
 		"rentedTo": "cust1"
 	},
@@ -45,7 +45,7 @@
 		"color": "blue",
 		"size": "medium",
 		"image": [{ "src": "./red-dress.jpg" }],
-		"price": "$20",
+		"price": "20",
 		"availability": "available",
 		"rentedTo": ""
 	},
@@ -55,7 +55,7 @@
 		"color": "blue",
 		"size": "large",
 		"image": [{ "src": "" }],
-		"price": "$20",
+		"price": "20",
 		"availability": "rented",
 		"rentedTo": "cust2"
 	},
@@ -65,7 +65,7 @@
 		"color": "grey",
 		"size": "large",
 		"image": [{ "src": "" }],
-		"price": "$20",
+		"price": "20",
 		"availability": "rented",
 		"rentedTo": "cust2"
 	},
@@ -75,7 +75,7 @@
 		"color": "black",
 		"size": "large",
 		"image": [{ "src": "" }],
-		"price": "$20",
+		"price": "20",
 		"availability": "lost",
 		"rentedTo": ""
 	}
