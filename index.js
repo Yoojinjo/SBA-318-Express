@@ -126,14 +126,13 @@ app.post("/return", (req, res) => {
 //search for id and then delete
 app.post("/delete", (req, res) => {
 	let requestedclothesId = req.body.clothesId;
-	let i = 0;
+	const indexToDelete = clothing.findIndex(
+		(item) => item.id == requestedclothesId
+	);
 
-	clothing.forEach((item) => {
-		i++;
-		if (item.id == requestedclothesId) {
-			clothing.splice(i - 1, 1);
-		}
-	});
+	if (indexToDelete !== -1) {
+		clothing.splice(indexToDelete, 1); // Remove the item from the array
+	}
 
 	res.render("inventory", {
 		data: clothing,
