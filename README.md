@@ -19,6 +19,8 @@ delete item button will generate an popup asking for confirmation
 use ejs to handle views
 data is stored as Json for this project, not actual database.
 
+set up router for inventory url
+
 would like to have way to store, display and upload pictures of items in future
 would like to implement a file to store history of changes to the inventory.
 would like to create UI for adding customer data.

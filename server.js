@@ -13,7 +13,7 @@ let clothingList = clothing.map((element) => {
 });
 
 app.set("view engine", "ejs");
-
+app.use("/inventory", inventory);
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,62 +43,6 @@ function renderInventoryPage(req, res, next) {
 		customers: customers,
 	});
 }
-//Routes
-app.use("/inventory", inventory);
-
-// Rent out inventory
-app.post("/rent", (req, res) => {
-	let requestedclothesId = req.body.clothesId;
-	const rentedTo = req.body.rentedTo; // Capture the customer name
-	clothing.forEach((clothing) => {
-		if (clothing.id == requestedclothesId) {
-			clothing.availability = "rented";
-			clothing.rentedTo = rentedTo;
-		}
-	});
-	res.render("inventory", {
-		data: clothing,
-		errorMessage: "",
-		inputValues: "",
-		customers: customers,
-	});
-});
-
-//return inventory
-app.post("/return", (req, res) => {
-	let requestedclothesId = req.body.clothesId;
-	clothing.forEach((clothing) => {
-		if (clothing.id == requestedclothesId) {
-			clothing.availability = "available";
-			clothing.rentedTo = "";
-		}
-	});
-	res.render("inventory", {
-		data: clothing,
-		errorMessage: "",
-		inputValues: "",
-		customers: customers,
-	});
-});
-
-//search for id and then delete
-app.post("/delete", (req, res) => {
-	let requestedclothesId = req.body.clothesId;
-	const indexToDelete = clothing.findIndex(
-		(item) => item.id == requestedclothesId
-	);
-
-	if (indexToDelete !== -1) {
-		clothing.splice(indexToDelete, 1); // Remove the item from the array
-	}
-
-	res.render("inventory", {
-		data: clothing,
-		errorMessage: "",
-		inputValues: "",
-		customers: customers,
-	});
-});
 
 // Route to get customer names
 app.get("/customers", (req, res) => {

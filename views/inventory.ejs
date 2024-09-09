@@ -31,7 +31,7 @@
 				<td><%= element.rentedTo %></td>
 				<td>$<%= element.price %></td>
 				<td>
-					<form action="/rent" method="post">
+					<form action="/inventory/rent" method="post">
 						<input
 							type="text"
 							style="display: none"
@@ -57,7 +57,7 @@
 					</form>
 				</td>
 				<td>
-					<form action="/return" method="post">
+					<form action="/inventory/return" method="post">
 						<input
 							type="text"
 							style="display: none"
@@ -75,7 +75,7 @@
 				</td>
 				<td>
 					<form
-						action="/delete"
+						action="/inventory/delete"
 						method="post"
 						onsubmit="return confirmDeletion()"
 					>

@@ -5,6 +5,17 @@ let customers = require("../data/customers.json");
 
 let clothing = require("../data/clothing.json");
 
+const bodyParser = require("body-parser");
+
+// Middleware to parse application/x-www-form-urlencoded
+router.use(bodyParser.urlencoded({ extended: true }));
+
+// Middleware to parse application/json
+router.use(bodyParser.json());
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
+
+router.use(express.static("views")); // where CSS resides
 // Middleware for the inventory view
 function renderInventoryPage(req, res, next) {
 	res.render("inventory", {
@@ -143,5 +154,59 @@ router.put(
 	},
 	renderInventoryPage
 );
+
+// Rent out inventory
+router.post("/rent", (req, res) => {
+	let requestedclothesId = req.body.clothesId;
+	const rentedTo = req.body.rentedTo; // Capture the customer name
+	clothing.forEach((clothing) => {
+		if (clothing.id == requestedclothesId) {
+			clothing.availability = "rented";
+			clothing.rentedTo = rentedTo;
+		}
+	});
+	res.render("inventory", {
+		data: clothing,
+		errorMessage: "",
+		inputValues: "",
+		customers: customers,
+	});
+});
+
+//return inventory
+router.post("/return", (req, res) => {
+	let requestedclothesId = req.body.clothesId;
+	clothing.forEach((clothing) => {
+		if (clothing.id == requestedclothesId) {
+			clothing.availability = "available";
+			clothing.rentedTo = "";
+		}
+	});
+	res.render("inventory", {
+		data: clothing,
+		errorMessage: "",
+		inputValues: "",
+		customers: customers,
+	});
+});
+
+//search for id and then delete
+router.post("/delete", (req, res) => {
+	let requestedclothesId = req.body.clothesId;
+	const indexToDelete = clothing.findIndex(
+		(item) => item.id == requestedclothesId
+	);
+
+	if (indexToDelete !== -1) {
+		clothing.splice(indexToDelete, 1); // Remove the item from the array
+	}
+
+	res.render("inventory", {
+		data: clothing,
+		errorMessage: "",
+		inputValues: "",
+		customers: customers,
+	});
+});
 
 module.exports = router;
