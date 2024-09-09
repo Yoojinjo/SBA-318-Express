@@ -73,6 +73,22 @@ app.post("/return", (req, res) => {
 	});
 });
 
+//search for id and then delete
+app.post("/delete", (req, res) => {
+	let requestedclothesId = req.body.clothesId;
+	let i = 0;
+
+	clothing.forEach((item) => {
+		i++;
+		if (item.id == requestedclothesId) {
+			clothing.splice(i - 1, 1);
+		}
+	});
+
+	res.render("inventory", {
+		data: clothing,
+	});
+});
 app.listen(port, (error) => {
 	if (error) console.log("Error, can't start server", error);
 	else console.log(`Server listening on http://localhost:${port}`);
