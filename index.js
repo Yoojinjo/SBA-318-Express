@@ -35,18 +35,29 @@ app.post("/inventory", (req, res) => {
 	const inputClothesSize = req.body.clothesSize;
 	const inputClothesPrice = req.body.clothesPrice;
 
-	clothing.push({
-		id: inputClothesId,
-		description: inputClothesDescription,
-		color: inputClothesColor,
-		size: inputClothesSize,
-		price: inputClothesPrice,
-		availability: "available",
-		rentedTo: "",
-	});
-	res.render("inventory", { data: clothing });
-});
+	// Check if the ID already exists
+	let isDuplicate = clothing.some((item) => item.id == inputClothesId);
 
+	if (isDuplicate) {
+		res.render("inventory", {
+			data: clothing,
+			errorMessage:
+				"Clothes ID already exists. Please use a different ID.",
+		});
+	} else {
+		// add values to clothing data
+		clothing.push({
+			id: inputClothesId,
+			description: inputClothesDescription,
+			color: inputClothesColor,
+			size: inputClothesSize,
+			price: inputClothesPrice,
+			availability: "available",
+			rentedTo: "",
+		});
+		res.render("inventory", { data: clothing });
+	}
+});
 // Rent out inventory
 app.post("/rent", (req, res) => {
 	let requestedclothesId = req.body.clothesId;
