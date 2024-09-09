@@ -31,7 +31,7 @@ function renderInventoryPage(req, res, next) {
 }
 
 //inventory control page
-app.get("/inventory", (req, res) => {
+app.get("/inventory/", (req, res) => {
 	res.render("inventory", {
 		data: clothing,
 		errorMessage: "",
@@ -39,6 +39,29 @@ app.get("/inventory", (req, res) => {
 	});
 });
 
+//search for item by id
+app.get("/inventory/:id", (req, res) => {
+	const itemId = req.params.id;
+
+	// Find the clothing item index with the matching ID
+	const item = clothing.find((clothingItem) => clothingItem.id === itemId);
+
+	if (item) {
+		// Render the page with the specific item
+		res.render("inventory", {
+			data: [item],
+			errorMessage: "",
+			inputValues: "",
+		});
+	} else {
+		// Render with an error message if the item is not found
+		res.render("inventory", {
+			data: clothing,
+			errorMessage: "Item not found",
+			inputValues: "",
+		});
+	}
+});
 //get values from add clothes form
 app.post(
 	"/inventory",
