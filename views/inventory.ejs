@@ -86,22 +86,35 @@
 		<h1>Add Clothing</h1>
 
 		<form action="/inventory" method="post">
-			<input type="text" placeholder="Clothes ID" name="clothesId" />
+			<input
+				type="text"
+				placeholder="Clothes ID"
+				name="clothesId"
+				value="<%= inputValues ? inputValues.clothesId : '' %>"
+			/>
 			<input
 				type="text"
 				placeholder="Clothes Description"
 				name="clothesDescription"
+				value="<%= inputValues ? inputValues.clothesDescription : '' %>"
 			/>
 			<input
 				type="text"
 				placeholder="Clothes Color"
 				name="clothesColor"
+				value="<%= inputValues ? inputValues.clothesColor : '' %>"
 			/>
-			<input type="text" placeholder="Clothes Size" name="clothesSize" />
+			<input
+				type="text"
+				placeholder="Clothes Size"
+				name="clothesSize"
+				value="<%= inputValues ? inputValues.clothesSize : '' %>"
+			/>
 			<input
 				type="text"
 				placeholder="Clothes Price"
 				name="clothesPrice"
+				value="<%= inputValues ? inputValues.clothesPrice : '' %>"
 			/>
 			<button type="submit">Add</button>
 		</form>

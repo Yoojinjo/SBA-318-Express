@@ -7,6 +7,7 @@ let clothing = require("./data/clothing.json");
 let clothingList = clothing.map((element) => {
 	return `${element.size} ${element.color} ${element.description}`;
 });
+
 app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
@@ -23,7 +24,11 @@ app.get("/", (req, res) => {
 
 //inventory control page
 app.get("/inventory", (req, res) => {
-	res.render("inventory", { data: clothing, errorMessage: "" });
+	res.render("inventory", {
+		data: clothing,
+		errorMessage: "",
+		inputValues: "",
+	});
 });
 
 //get values from add clothes form
@@ -37,26 +42,56 @@ app.post("/inventory", (req, res) => {
 
 	// Check if the ID already exists
 	let isDuplicate = clothing.some((item) => item.id == inputClothesId);
-
 	if (isDuplicate) {
-		res.render("inventory", {
+		return res.render("inventory", {
 			data: clothing,
 			errorMessage:
 				"Clothes ID already exists. Please use a different ID.",
+			inputValues: {
+				clothesDescription: inputClothesDescription,
+				clothesColor: inputClothesColor,
+				clothesSize: inputClothesSize,
+				clothesPrice: inputClothesPrice,
+			},
 		});
-	} else {
-		// add values to clothing data
-		clothing.push({
-			id: inputClothesId,
-			description: inputClothesDescription,
-			color: inputClothesColor,
-			size: inputClothesSize,
-			price: inputClothesPrice,
-			availability: "available",
-			rentedTo: "",
-		});
-		res.render("inventory", { data: clothing, errorMessage: "" });
 	}
+
+	// Check that all fields are filled
+	if (
+		inputClothesId === "" ||
+		inputClothesDescription === "" ||
+		inputClothesColor === "" ||
+		inputClothesSize === "" ||
+		inputClothesPrice === ""
+	) {
+		return res.render("inventory", {
+			data: clothing,
+			errorMessage: "ALL Fields are required",
+			inputValues: {
+				clothesId: inputClothesId,
+				clothesDescription: inputClothesDescription,
+				clothesColor: inputClothesColor,
+				clothesSize: inputClothesSize,
+				clothesPrice: inputClothesPrice,
+			},
+		});
+	}
+
+	// add values to clothing data
+	clothing.push({
+		id: inputClothesId,
+		description: inputClothesDescription,
+		color: inputClothesColor,
+		size: inputClothesSize,
+		price: inputClothesPrice,
+		availability: "available",
+		rentedTo: "",
+	});
+	res.render("inventory", {
+		data: clothing,
+		errorMessage: "",
+		inputValues: "",
+	});
 });
 // Rent out inventory
 app.post("/rent", (req, res) => {
@@ -69,6 +104,7 @@ app.post("/rent", (req, res) => {
 	res.render("inventory", {
 		data: clothing,
 		errorMessage: "",
+		inputValues: "",
 	});
 });
 
@@ -83,6 +119,7 @@ app.post("/return", (req, res) => {
 	res.render("inventory", {
 		data: clothing,
 		errorMessage: "",
+		inputValues: "",
 	});
 });
 
@@ -101,6 +138,7 @@ app.post("/delete", (req, res) => {
 	res.render("inventory", {
 		data: clothing,
 		errorMessage: "",
+		inputValues: "",
 	});
 });
 app.listen(port, (error) => {
