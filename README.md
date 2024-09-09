@@ -11,7 +11,8 @@ return button will undo the rent status. and the last customer
 can create new items, error handling to prevent empty fields and reusing an existing item id.
 if an entry is rejected, error message displays reason why. Fields are retained, so that user does not need to refill everything.
 
-can edit an item properties. if item is edited to lost status, then item return button is disabled. (needs to also disable the rent button too tho.)
+can edit an item properties.
+if item is lost status, then item return button is disabled. (needs to also disable the rent button too tho.)Not sure sure if there is a easier way to implement, this took much time to get working and I'm not sure I even understand it.
 
 delete item button will generate an popup asking for confirmation
 

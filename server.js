@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+const inventory = require("./routes/inventory");
+
 const bodyParser = require("body-parser");
 let customers = require("./data/customers.json");
 
@@ -22,10 +24,15 @@ app.use(methodOverride("_method"));
 
 //home page item list
 app.get("/", (req, res) => {
-	res.render("home", {
-		variableName: "Clothing for rent",
-		ourStuff: clothingList,
-	});
+	try {
+		res.status(200).render("home", {
+			variableName: "Clothing for rent",
+			ourStuff: clothingList,
+		});
+	} catch (error) {
+		console.error("Error on home page:", error);
+		res.status(500).send("An error occurred while loading the page.");
+	}
 });
 // Middleware for the inventory view
 function renderInventoryPage(req, res, next) {
@@ -36,135 +43,8 @@ function renderInventoryPage(req, res, next) {
 		customers: customers,
 	});
 }
-
-//inventory control page
-app.get("/inventory/", (req, res) => {
-	res.render("inventory", {
-		data: clothing,
-		errorMessage: "",
-		inputValues: "",
-		customers: customers,
-	});
-});
-
-//search for item by id
-app.get("/inventory/:id", (req, res) => {
-	const itemId = req.params.id;
-
-	// Find the clothing item index with the matching ID
-	const item = clothing.find((clothingItem) => clothingItem.id === itemId);
-
-	if (item) {
-		// Render the page with the specific item
-		res.render("inventory", {
-			data: [item],
-			errorMessage: "",
-			inputValues: "",
-			customers: customers,
-		});
-	} else {
-		// Render with an error message if the item is not found
-		res.render("inventory", {
-			data: clothing,
-			errorMessage: "Item not found",
-			inputValues: "",
-			customers: customers,
-		});
-	}
-});
-
-//add items
-//get values from add clothes form
-app.post(
-	"/inventory",
-	(req, res, next) => {
-		console.log(req.body);
-		const inputClothesId = req.body.clothesId;
-		const inputClothesDescription = req.body.clothesDescription;
-		const inputClothesColor = req.body.clothesColor;
-		const inputClothesSize = req.body.clothesSize;
-		const inputClothesPrice = req.body.clothesPrice;
-
-		// Check if the ID already exists
-		let isDuplicate = clothing.some((item) => item.id == inputClothesId);
-		if (isDuplicate) {
-			(res.locals.errorMessage =
-				"Clothes ID already exists. Please use a different ID."),
-				(res.locals.inputValues = req.body);
-			return next();
-		}
-
-		// Check that all fields are filled
-		if (
-			inputClothesId === "" ||
-			inputClothesDescription === "" ||
-			inputClothesColor === "" ||
-			inputClothesSize === "" ||
-			inputClothesPrice === ""
-		) {
-			res.locals.errorMessage = "All fields are required.";
-			res.locals.inputValues = req.body; // Retain input values
-			return next();
-		}
-
-		// add values to clothing data
-		clothing.push({
-			id: inputClothesId,
-			description: inputClothesDescription,
-			color: inputClothesColor,
-			size: inputClothesSize,
-			price: inputClothesPrice,
-			availability: "available",
-			rentedTo: "",
-		});
-		res.locals.errorMessage = "";
-		res.locals.inputValues = {};
-		next();
-	},
-	renderInventoryPage
-);
-
-//edit items
-//get values from add clothes form
-app.put(
-	"/inventory",
-	(req, res, next) => {
-		const {
-			clothesId,
-			clothesDescription,
-			clothesColor,
-			clothesSize,
-			clothesPrice,
-			clothesAvailability,
-			clothesRentedTo,
-		} = req.body;
-
-		// Find the index of the item by ID
-		const itemIndex = clothing.findIndex((item) => item.id == clothesId);
-
-		if (itemIndex === -1) {
-			res.locals.errorMessage = "Item not found";
-			res.locals.inputValues = req.body;
-			return next();
-		}
-
-		// Update the clothing item
-		clothing[itemIndex] = {
-			id: clothesId,
-			description: clothesDescription,
-			color: clothesColor,
-			size: clothesSize,
-			price: clothesPrice,
-			availability: clothesAvailability,
-			rentedTo: clothesRentedTo,
-		};
-
-		res.locals.errorMessage = "";
-		res.locals.inputValues = {};
-		next();
-	},
-	renderInventoryPage
-);
+//Routes
+app.use("/inventory", inventory);
 
 // Rent out inventory
 app.post("/rent", (req, res) => {
