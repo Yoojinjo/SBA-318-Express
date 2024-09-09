@@ -83,7 +83,7 @@ app.post("/inventory", (req, res) => {
 		description: inputClothesDescription,
 		color: inputClothesColor,
 		size: inputClothesSize,
-		price: inputClothesPrice,
+		price: `$${inputClothesPrice}`,
 		availability: "available",
 		rentedTo: "",
 	});
