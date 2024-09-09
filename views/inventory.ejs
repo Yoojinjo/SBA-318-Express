@@ -74,6 +74,14 @@
 							Rented!
 						</button>
 						<% } else { %>
+						<select name="rentedTo" required>
+							<option value="">Select Customer</option>
+							<% customers.forEach(customer => { %>
+							<option value="<%= customer.name %>">
+								<%= customer.name%>
+							</option>
+							<% }) %>
+						</select>
 						<button type="submit" class="rent-button">
 							Rent Out
 						</button>

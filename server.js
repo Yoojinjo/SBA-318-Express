@@ -3,6 +3,8 @@ const app = express();
 const port = 3000;
 
 const bodyParser = require("body-parser");
+let customers = require("./data/customers.json");
+let customerName = customers.name;
 let clothing = require("./data/clothing.json");
 let clothingList = clothing.map((element) => {
 	return `${element.size} ${element.color} ${element.description}`;
@@ -36,6 +38,7 @@ app.get("/inventory/", (req, res) => {
 		data: clothing,
 		errorMessage: "",
 		inputValues: "",
+		customers: customers,
 	});
 });
 
@@ -52,6 +55,7 @@ app.get("/inventory/:id", (req, res) => {
 			data: [item],
 			errorMessage: "",
 			inputValues: "",
+			customers: customers,
 		});
 	} else {
 		// Render with an error message if the item is not found
@@ -59,6 +63,7 @@ app.get("/inventory/:id", (req, res) => {
 			data: clothing,
 			errorMessage: "Item not found",
 			inputValues: "",
+			customers: customers,
 		});
 	}
 });
@@ -115,15 +120,18 @@ app.post(
 // Rent out inventory
 app.post("/rent", (req, res) => {
 	let requestedclothesId = req.body.clothesId;
+	const rentedTo = req.body.rentedTo; // Capture the customer name
 	clothing.forEach((clothing) => {
 		if (clothing.id == requestedclothesId) {
 			clothing.availability = "rented";
+			clothing.rentedTo = rentedTo;
 		}
 	});
 	res.render("inventory", {
 		data: clothing,
 		errorMessage: "",
 		inputValues: "",
+		customers: customers,
 	});
 });
 
@@ -140,6 +148,7 @@ app.post("/return", (req, res) => {
 		data: clothing,
 		errorMessage: "",
 		inputValues: "",
+		customers: customers,
 	});
 });
 
@@ -158,8 +167,15 @@ app.post("/delete", (req, res) => {
 		data: clothing,
 		errorMessage: "",
 		inputValues: "",
+		customers: customers,
 	});
 });
+
+// Route to get customer names
+app.get("/customers", (req, res) => {
+	res.json(customers);
+});
+
 app.listen(port, (error) => {
 	if (error) console.log("Error, can't start server", error);
 	else console.log(`Server listening on http://localhost:${port}`);
