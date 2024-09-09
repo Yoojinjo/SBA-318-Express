@@ -20,6 +20,22 @@
 		tr:nth-child(even) {
 			background-color: #dddddd;
 		}
+		/* Button styles */
+		.rent-button {
+			background-color: green;
+			color: white;
+			border: none;
+			padding: 10px 20px;
+			cursor: pointer;
+		}
+
+		.rented-button {
+			background-color: red;
+			color: white;
+			border: none;
+			padding: 10px 20px;
+			cursor: not-allowed; /* Disables the cursor */
+		}
 	</style>
 
 	<body>
@@ -53,8 +69,15 @@
 							style="display: none"
 							name="clothesId"
 							value="<%= element.id %>"
-						/>
-						<button type="submit">Rent Out</button>
+						/><% if (element.availability === "rented") { %>
+						<button type="submit" class="rented-button" disabled>
+							Rented!
+						</button>
+						<% } else { %>
+						<button type="submit" class="rent-button">
+							Rent Out
+						</button>
+						<% } %>
 					</form>
 				</td>
 				<td>
@@ -87,13 +110,7 @@
 			<% }) %>
 		</table>
 
-		<h1>Add Clothing</h1>
-
-		<script>
-			function confirmDeletion() {
-				return confirm("Are you sure you want to delete this item?");
-			}
-		</script>
+		<h2>Add Clothing</h2>
 
 		<form action="/inventory" method="post">
 			<input
@@ -128,6 +145,61 @@
 			/>
 			<button type="submit">Add</button>
 		</form>
+
+		<h2>Edit Clothing</h2>
+		<form action="/inventory" method="post">
+			<input
+				type="text"
+				placeholder="Clothes ID"
+				name="editClothesId"
+				value="<%= inputValues ? inputValues.clothesId : '' %>"
+			/>
+			<input
+				type="text"
+				placeholder="Clothes Description"
+				name="editClothesDescription"
+				value="<%= inputValues ? inputValues.clothesDescription : '' %>"
+			/>
+			<input
+				type="text"
+				placeholder="Clothes Color"
+				name="editClothesColor"
+				value="<%= inputValues ? inputValues.clothesColor : '' %>"
+			/>
+			<input
+				type="text"
+				placeholder="Clothes Size"
+				name="editClothesSize"
+				value="<%= inputValues ? inputValues.clothesSize : '' %>"
+			/>
+			<input
+				type="text"
+				placeholder="Clothes Price"
+				name="editClothesPrice"
+				value="<%= inputValues ? inputValues.clothesPrice : '' %>"
+			/>
+			<input
+				type="text"
+				placeholder="Clothes Availability"
+				name="editClothesAvailability"
+				value="<%= inputValues ? inputValues.clothesAvailability : '' %>"
+			/>
+			<input
+				type="text"
+				placeholder="Clothes Rented To"
+				name="editClothesRentedTo"
+				value="<%= inputValues ? inputValues.clothesRentedTo : '' %>"
+			/>
+			<button type="submit">Edit</button>
+		</form>
+
 		<p style="color: red"><%= errorMessage %></p>
+		<script>
+			function confirmDeletion() {
+				return confirm("Are you sure you want to delete this item?");
+			}
+		</script>
+
+		<script src="./script.js"></script>
 	</body>
 </html>

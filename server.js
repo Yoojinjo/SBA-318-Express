@@ -133,6 +133,7 @@ app.post("/return", (req, res) => {
 	clothing.forEach((clothing) => {
 		if (clothing.id == requestedclothesId) {
 			clothing.availability = "available";
+			clothing.rentedTo = "";
 		}
 	});
 	res.render("inventory", {
